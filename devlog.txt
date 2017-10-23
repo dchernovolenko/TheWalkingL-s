@@ -1,0 +1,14 @@
+The Walking L's
+Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
+Period 8 Soft Dev Project 0
+DEVLOG:
+
+danielC -- 2017-10-22 10:57
+	Added the project proposal, which includes: 
+	      a. a sitemap that includes a flowchart that shows how all pages lead to one another 
+	      b. a list and second flowchart connecting all components 
+	      c. a further flowchart describing the relationship between key hashing and how the story is read 
+	      d. a list of assignments, tagging each component of the project with a group member
+
+dimitriyL -- 2017-10-22 11:50
+	  Added this devlog.
