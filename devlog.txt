@@ -3,6 +3,9 @@ Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
 
+wooJ -- 2017-10-22 8:01
+	Cerated flowcharts for design doc.
+	
 danielC -- 2017-10-22 10:57
 	Added the project proposal, which includes: 
 	      a. a sitemap that includes a flowchart that shows how all pages lead to one another 
