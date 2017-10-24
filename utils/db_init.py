@@ -2,14 +2,14 @@ import sqlite3
 import csv
 
 try:
-    execfile("db_builder.py")
+    execfile("../data/db_builder.py")
 except:
     pass
 
 # create tables
 # table1 - usernames and passwords
 def create_user_pass_table():
-    c.execute("CREATE TABLE user_pass (user_id INTEGER PRIMARY KEY, username TEXT, hashed_pw TEXT);")
+    c.execute("CREATE TABLE user_pass (user_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, hash_pass TEXT);")
     print "CREATED USER_PASS TABLE"
 
 # table2 - users and stories
@@ -19,11 +19,11 @@ def create_user_stories_table():
 
 # table3 - stories
 def create_stories_table():
-    c.execute("CREATE TABLE stories (story_id INTEGER PRIMARY KEY, story TEXT);")
+    c.execute("CREATE TABLE stories (story_id INTEGER PRIMARY KEY AUTOINCREMENT, story TEXT);")
     print "CREATED STORIES TABLE"
 
 if __name__ == "__main__":
-    db_name = "thewalkingls.db"
+    db_name = "../data/thewalkingls.db"
     db = sqlite3.connect(db_name)
     c = db.cursor()
     
