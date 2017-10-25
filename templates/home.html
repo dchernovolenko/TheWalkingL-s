@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Home</title>
+        </head>
+
+        <body>
+                Welcome, {{user}}
+
+                <form action="/categories" method= "POST">
+                  <input type="submit" value="Categories">
+                </form>
+
+                <form action="/newstory" method= "POST">
+                  <input type="submit" value="Make a new story!">
+                </form>
+                Stories you contributed to:
+                {{% for story in stories%}}
+                <li><c>{{story.title}}</c></li>
+                <c>{{story.text}}</c>
+
+        </body>
+</html>

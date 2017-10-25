@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>{{title}}</title>
+        </head>
+
+        <body>
+                {% block content1 %}
+                You are now reading {{title}}
+                Made by {{creator}} at {{time}}
+                {% endblock %}
+
+                {% block content2 %}
+                {{story}}
+                {% endblock %}
+
+                <form action="/categories" method= "POST">
+                  <input type="submit" value="Go back">
+                </form>
+                <form action="/home" method= "POST">
+                  <input type="submit" value="Go home">
+                </form>
+        </body>
+</html>
