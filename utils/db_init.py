@@ -19,7 +19,7 @@ def create_user_stories_table():
 
 # table3 - stories
 def create_stories_table():
-    c.execute("CREATE TABLE stories (story_id INTEGER PRIMARY KEY AUTOINCREMENT, story TEXT);")
+    c.execute("CREATE TABLE stories (story_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, category TEXT, story TEXT);")
     print "CREATED STORIES TABLE"
 
 if __name__ == "__main__":
