@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-        <head>
-                <title>{{title}}</title>
-        </head>
+{% extends "base.html" %}
 
-        <body>
+{% block header %}
+{{title}}
+{% endblock %}
+
+{% block body %}
                 {% block content1 %}
                 You are now reading {{title}}
                 Made by {{creator}} at {{time}}
@@ -20,5 +20,4 @@
                 <form action="/home" method= "POST">
                   <input type="submit" value="Go home">
                 </form>
-        </body>
-</html>
+{% endblock %}

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Welcome!</title>
-  </head>
+{% extends "base.html" %}
 
-  <body>
+{% block header %}
+Welcome!
+{% endblock %}
+
+{% block body %}
     <form action="root.py">
       <h1>Login if you have an account:</h1>
       <br>
@@ -20,5 +20,5 @@
       <br>
       <input type="submit" value="Register" name="registerButton">
     </form>
-  </body>
-</html>
+{% endblock %}
+
