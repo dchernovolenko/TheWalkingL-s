@@ -27,6 +27,42 @@ def db_exec_fetch(dbh, sql_funct):
     print command
     return ex.fetchall()
 
+def get_users(dbh):
+    '''
+    Funct:
+    Returns dictionary of usernames: password
+    '''
+    command = "SELECT username, hash_pass FROM user_pass;"
+    c = dbh.cursor()
+    x = c.execute(command)
+    users = {}
+    for line in x:
+        users[line[0]] = line[1]
+    return users
+
+def get_user_story_ids(dbh, user_id):
+    '''
+    returns list of story_ids of user's stories
+    '''
+    story_ids= []
+    user_story_fetch = db_exec_fetch(dbh, "SELECT story_id FROM user_stories WHERE user_id = %i" % (user_id))
+    print user_story_fetch
+    for i in user_story_fetch:
+        story_ids.append(i[0])
+    return story_ids
+    
+def get_story_info(dbh, story_id):
+    '''
+    returns dictionary of story_info
+    '''
+    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i" % (story_id))[0]
+    story_info = {'story_id': story_info_fetch[0],
+                  'title': story_info_fetch[1],
+                  'category': story_info_fetch[2],
+                  'story': story_info_fetch[3]
+                  }
+    return story_info
+    
 def create_story(dbh, user_id, title, category):
     '''
     Prereq:
@@ -107,7 +143,6 @@ def select_user_story(user_id, story_id):
 def insert_new_story(title, category):
     return "INSERT INTO stories VALUES (null, '%s', '%s', null);" % (title, category)
 
-
 def update_story(story_id, text):
     return "UPDATE stories SET story = '%s' WHERE story_id = %i;" % (text, story_id)
     
@@ -143,6 +178,9 @@ if __name__ == "__main__":
     '''
     create_story(db, 1, "J", "Fiction")
     write_story(db, 1, "They walked") 
-    '''
     add_to_story(db, 2, 1, " The castle on the hill.")
+    print get_story_info(db, 1);
+    '''
+    print get_user_story_ids(db, 1)
+    
     db.close()
