@@ -3,7 +3,9 @@ Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
 danielC -- 2017-10-26 1:38
-	Added if statement to story
+	Added if statement to story.html, cleaned up HTMLs, added home button to base
+dimitriyL -- 2017-10-26 1:32
+	Added @login
 jackieW -- 2017-10-24 2:08
 	  Added db creation.
 dimitriyL -- 2017-10-24 2:07
