@@ -130,8 +130,8 @@ def set_user_story_userid(user_id):
 def set_user_story_ownership(user_id, ownership):
     return "UPDATE user_stories SET ownership = %i WHERE user_id = %i" % (ownership, user_id)
 
-def select_ownership(user_id):
-    return "SELECT ownership FROM user_stories WHERE user_id = %i;" % (user_id)
+def select_ownership(user_id, story_id):
+    return "SELECT ownership FROM user_stories WHERE user_id = %i AND story_id = %i;" % (user_id, story_id)
 
 def select_user_story(user_id, story_id):
     '''
@@ -145,7 +145,7 @@ def insert_new_story(title, category):
 
 def update_story(story_id, text):
     return "UPDATE stories SET story = '%s' WHERE story_id = %i;" % (text, story_id)
-    
+
 def select_story(story_id):
     return "SELECT story FROM stories WHERE story_id = %i" % (story_id)
 
