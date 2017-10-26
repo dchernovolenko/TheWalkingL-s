@@ -2,7 +2,9 @@ The Walking L's
 Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
-wooJ -- 2017-10-24 2:08
+danielC -- 2017-10-26 1:38
+	Added if statement to story
+jackieW -- 2017-10-24 2:08
 	  Added db creation.
 dimitriyL -- 2017-10-24 2:07
 	  Added basic login and dsignup html.
@@ -14,5 +16,5 @@ danielC -- 2017-10-22 10:57
 	      b. a list and second flowchart connecting all components 
 	      c. a further flowchart describing the relationship between key hashing and how the story is read 
 	      d. a list of assignments, tagging each component of the project with a group member
-wooJ -- 2017-10-22 8:01
+jackieW -- 2017-10-22 8:01
 	Cerated flowcharts for design doc.
