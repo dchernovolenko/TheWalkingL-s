@@ -17,9 +17,13 @@ def db_exec(dbh, sql_funct):
 
 def db_exec_fetch(dbh, sql_funct):
     '''
+    Prereq:
+    dbh is the database connection
+    sql_funt is an sql command or one of the table functions below
+
     Funct:
     Executes and commits command to database.
-    Returns list of querey elements.
+    Returns list of tuples of querey elements. ( fetchall() )
     '''
     c = dbh.cursor()
     command = sql_funct
@@ -59,11 +63,22 @@ def get_user_story_ids(dbh, user_id):
     return story_ids
 
 def get_story(dbh, story_id):
+    '''
+    Prereq:
+    Story exists
+
+    Funct:
+    return story (based on story_id) as string 
+    '''
     story_fetch = db_exec_fetch(dbh, select_story(story_id))
     return story_fetch[0][0]
 
 def get_story_info(dbh, story_id):
     '''
+    Prereq:
+    Story exists
+
+    Funct:
     returns dictionary of story_info
     '''
     story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i" % (story_id))[0]
@@ -114,7 +129,7 @@ def add_to_story(dbh, user_id, story_id, text):
     write_story(dbh, story_id, text)
 
     
-# --------------------------- BASIC SQL FUNCTIONS ------------------------------
+# ------------------------------------------ BASIC SQL FUNCTIONS ---------------------------------------------
 # user_pass table functions
 def insert_new_user(user, hash_pass):
     '''
