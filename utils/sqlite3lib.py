@@ -1,4 +1,9 @@
 import sqlite3
+'''
+To use:
+In other python file, create database connection.
+When calling top functions, always pass in database handle.
+'''
 
 def db_exec(dbh, sql_funct):
     '''
