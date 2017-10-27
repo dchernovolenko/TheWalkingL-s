@@ -40,6 +40,13 @@ def get_users(dbh):
         users[line[0]] = line[1]
     return users
 
+def get_user_info(dbh, user_id):
+    user_info_fetch = db_exec_fetch(dbh, select_user_info(user_id))[0]
+    user_info = {'user_id': user_info_fetch[0],
+                 'username': user_info_fetch[1],
+                 'hash_pass': user_info_fetch[2]}
+    print user_info
+    
 def get_user_story_ids(dbh, user_id):
     '''
     returns list of story_ids of user's stories
@@ -50,7 +57,11 @@ def get_user_story_ids(dbh, user_id):
     for i in user_story_fetch:
         story_ids.append(i[0])
     return story_ids
-    
+
+def get_story(dbh, story_id):
+    story_fetch = db_exec_fetch(dbh, select_story(story_id))
+    return story_fetch[0][0]
+
 def get_story_info(dbh, story_id):
     '''
     returns dictionary of story_info
@@ -103,7 +114,7 @@ def add_to_story(dbh, user_id, story_id, text):
     write_story(dbh, story_id, text)
 
     
-# ------- BASIC SQL FUNCTIONS ---------
+# --------------------------- BASIC SQL FUNCTIONS ------------------------------
 # user_pass table functions
 def insert_new_user(user, hash_pass):
     '''
@@ -113,12 +124,15 @@ def insert_new_user(user, hash_pass):
     '''
     return "INSERT INTO user_pass VALUES (null,'%s','%s');" % (user, hash_pass)
  
-def update_user_pass(user, hash_pass):
+def update_user_pass(user_id, hash_pass):
     '''
     Prereq:
     User exists.
     '''
-    return "UPDATE user_pass SET hash_pass = '%s' WHERE username = '%s';" % (hash_pass, user)
+    return "UPDATE user_pass SET hash_pass = '%s' WHERE user_id = %i;" % (hash_pass, user_id)
+
+def select_user_info(user_id):
+    return "SELECT * FROM user_pass WHERE user_id = %i" % (user_id)
 
 # user_stories table functions
 def insert_new_user_story(user_id, story_id, owner):
@@ -180,7 +194,10 @@ if __name__ == "__main__":
     write_story(db, 1, "They walked") 
     add_to_story(db, 2, 1, " The castle on the hill.")
     print get_story_info(db, 1);
-    '''
     print get_user_story_ids(db, 1)
+    print get_story(db, 1)
+    print get_user_info(db, 1)
+    '''
+
     
     db.close()
