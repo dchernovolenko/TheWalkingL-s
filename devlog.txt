@@ -2,6 +2,8 @@ The Walking L's
 Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
+dimitriyL -- 2017-10-27 11:10
+	Added a basic root route and a signup route to root.py
 jackieW -- 2017-10-26 2:03
 	Added get_user_ids and other functions
 danielC -- 2017-10-26 1:38
@@ -22,3 +24,4 @@ danielC -- 2017-10-22 10:57
 	      d. a list of assignments, tagging each component of the project with a group member
 jackieW -- 2017-10-22 8:01
 	Cerated flowcharts for design doc.
+
