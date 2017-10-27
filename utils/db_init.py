@@ -1,10 +1,4 @@
 import sqlite3
-import csv
-
-try:
-    execfile("../data/db_builder.py")
-except:
-    pass
 
 # create tables
 # table1 - usernames and passwords
