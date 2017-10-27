@@ -4,7 +4,7 @@ import utils
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-
+    
 users = {"userNow": "userNowPass"}
 
 @app.route("/", methods = ["GET", "POST"])
@@ -51,6 +51,13 @@ def signup():
         return render_template("home.html")
     
 if __name__ == "__main__":
+    # database connection
+    db_name = "../data/thewalkingls.db"
+    db = sqlite3.connect(db_name)
+    
     app.debug = True
     app.run()
+    
+    # close database connection
+    db.close()
     
