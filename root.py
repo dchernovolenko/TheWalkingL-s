@@ -48,8 +48,26 @@ def signup():
     else:
         session["username"] = newUser
         users[newUser] = newPass
-        return render_template("home.html")
-    
+    return render_template("home.html")
+
+@app.route("/edit", methods = ["GET", "POST"])
+def edit():
+    '''
+    test
+    '''
+    story_id = request.args["story_id"]
+    story_info = get_story_info(db, story_id)
+    s_title = story_info["title"]
+    s_creator = story_info["owner"]
+    s_story = story_info["story"]
+    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime") 
+
+@app.route("/create", methods = ["GET", "POST"])
+def create():
+    user_id = request.args["user_id"]
+    # how to get form entries and put it into create_new_story(dbh)
+    return render_template("newstory.html", user_id)
+
 if __name__ == "__main__":
     # database connection
     db_name = "../data/thewalkingls.db"
