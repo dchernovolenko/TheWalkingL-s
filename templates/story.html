@@ -5,22 +5,22 @@
 {% endblock %}
 
 {% block body %}
-  {% if reading %}
-    You are now reading {{title}}
-    Made by {{creator}} at {{time}}
-    <br>
-    {{story}}
-    <br>
-  {% else %}
-    You are now editing {{title}}
-    Made by {{creator}} at {{time}}
-    <br>
-    Last submission:
-    {{story}}
-    <br>
-    Add your submission:
-    <br>
-    <input type="text" name="submission">
-    <br>
-    <input type="submit" value="Submit" name="submission">
+{% if reading %}
+You are now reading {{title}}
+Made by {{creator}} at {{time}}
+<br>
+{{story}}
+<br>
+{% else %}
+You are now editing {{title}}
+Made by {{creator}} at {{time}}
+<br>
+Last submission:
+{{story}}
+<br>
+Add your submission:
+<br>
+<input type="text" name="story">
+<br>
+<input type="submit" value="edit_story" name="submission">
 {% endblock %}

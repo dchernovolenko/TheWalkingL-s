@@ -6,9 +6,39 @@ Tags
 
 {% block body %}
 <tr>
+  {% if categories|length > 3 %}
+  {% for i in range(0, 4) %}
+  <td><a href="/category?" + {{categories[i]}}> {{categories[i]}} </a></td>
+  {% endfor %}
+  {% else %}
   {% for tag in categories %}
   <td> {{tag}} </td>
   {% endfor %}
+  {% endif %}
 </tr>
+
+{% if categories|length > 7 %}
+<tr>
+  {% for i in range(4, 8) %}
+  <td><a href="/category?" + {{categories[i]}}> {{categories[i]}} </a></td>
+  {% endfor %}
+</tr>
+{% endif %}
+
+{% if categories|length > 11 %}
+<tr>
+  {% for i in range(8, 12) %}
+  <td><a href="/category?" + {{categories[i]}}> {{categories[i]}} </a></td>
+  {% endfor %}
+</tr>
+{% endif %}
+
+{% if categories|length > 15 %}
+<tr>
+  {% for i in range(12, 16) %}
+  <td><a href="/category?" + {{categories[i]}}> {{categories[i]}} </a></td>
+  {% endfor %}
+</tr>
+{% endif %}
 {% endblock %}
 

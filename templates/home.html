@@ -5,17 +5,17 @@ Home
 {% endblock %}
 
 {% block body %}
-                Welcome, {{user}}
+Welcome, {{user}}
 
-                <form action="/categories" method= "POST">
-                  <input type="submit" value="Categories">
-                </form>
+<form action="/categories" method= "POST">
+  <input type="submit" value="Categories">
+</form>
 
-                <form action="/newstory" method= "POST">
-                  <input type="submit" value="Make a new story!">
-                </form>
-                Stories you contributed to:
-                {{% for story in stories%}}
-                <li><c>{{story.title}}</c></li>
-                <c>{{story.text}}</c>
+<form action="/create" method= "POST">
+  <input type="submit" value="Make a new story!">
+</form>
+Stories you contributed to:
+{{% for story in stories %}}
+<li><c>{{story.title}}</c></li>
+<c>{{story.text}}</c>
 {% endblock %}

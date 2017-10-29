@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block header %}
+{{category}}
+{% endblock %}
+
+{% block body %}
+<tr>
+  {% if stories|length > 3 %}
+  {% for i in range(0, 4) %}
+  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
+  {% endfor %}
+  {% else %}
+  {% for story in stories %}
+  <td> {{story}} </td>
+  {% endfor %}
+  {% endif %}
+</tr>
+
+{% if stories|length > 7 %}
+<tr>
+  {% for i in range(4, 8) %}
+  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
+  {% endfor %}
+</tr>
+{% endif %}
+
+{% if stories|length > 11 %}
+<tr>
+  {% for i in range(8, 12) %}
+  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
+  {% endfor %}
+</tr>
+{% endif %}
+
+{% if stories|length > 15 %}
+<tr>
+  {% for i in range(12, 16) %}
+  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
+  {% endfor %}
+</tr>
+{% endif %}
+{% endblock %}

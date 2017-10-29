@@ -1,8 +1,21 @@
 {% extends "base.html" %}
 
 {% block header %}
+New Story
 {% endblock %}
 
 {% block body %}
+<form action="/read" method= "POST">
+  Please title your work: <input type="text" name="title">
+  Write your story here:<br>
+  <input type="text" name="story">
+  Choose a tag for your story:
+  <select name="category">
+    {% for tag in categories %}
+    <option value={{tag}}>{{tag}}</option>
+    {% endfor %}
+  </select>
+  <input type="submit" name="submission" value="new_story">
+</form> 
 {% endblock %}
 

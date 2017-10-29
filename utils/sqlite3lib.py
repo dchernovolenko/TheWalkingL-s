@@ -95,6 +95,17 @@ def get_story_info(dbh, story_id):
                   'story': story_info_fetch[3]
                   }
     return story_info
+						  
+def get_categories(dbh):
+    '''
+    returns list of categories
+    '''
+    categories = []
+    category_fetch = db_exec_fetch(dbh, "SELECT DISTINCT categories FROM stories")
+    print category_fetch
+    for i in category_fetch:
+        categories.append(i[0])
+    return categories
     
 def create_story(dbh, user_id, title, category, story):
     '''
