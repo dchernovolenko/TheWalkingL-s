@@ -87,14 +87,16 @@ def get_story_info(dbh, story_id):
     returns dictionary of story_info
     '''
     story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i" % (story_id))[0]
+    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1" % (story_id)[0][0]
     story_info = {'story_id': story_info_fetch[0],
                   'title': story_info_fetch[1],
+                  'owner': owner,
                   'category': story_info_fetch[2],
                   'story': story_info_fetch[3]
                   }
     return story_info
     
-def create_story(dbh, user_id, title, category):
+def create_story(dbh, user_id, title, category, story):
     '''
     Prereq:
     Uses aft_insert trigger in db_init.py
@@ -102,7 +104,7 @@ def create_story(dbh, user_id, title, category):
     Funct:
     Creates new story
     '''
-    db_exec(dbh, insert_new_story(title,category))
+    db_exec(dbh, insert_new_story(title,category,story))
     db_exec(dbh, set_user_story_userid(user_id))
     
 def write_story(dbh, story_id, text):
@@ -174,8 +176,8 @@ def select_user_story(user_id, story_id):
     return "SELECT story FROM stories WHERE user_stories.story_id = %i AND user_stories.user_id = %i;" % (story_id, user_id)
 
 # stories table functions
-def insert_new_story(title, category):
-    return "INSERT INTO stories VALUES (null, '%s', '%s', null);" % (title, category)
+def insert_new_story(title, category, story):
+                          return "INSERT INTO stories VALUES (null, '%s', '%s', '%s');" % (title, category, story)
 
 def update_story(story_id, text):
     return "UPDATE stories SET story = '%s' WHERE story_id = %i;" % (text, story_id)
