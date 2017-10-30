@@ -24,7 +24,7 @@ users = {"userNow": "userNowPass"}
 def root():
     #if you are logged in
     if(session.has_key("username")):
-        return render_template("home.html")
+        return render_template("home.html", user = session["username"])
     #login page
     else:
         return render_template("login.html")
@@ -33,21 +33,17 @@ def root():
 #if user is logged in, it defaults to home.html
 @app.route("/login", methods = ["GET", "POST"])
 def login():
-    #person is currently logged in
-    if(session.has_key("username")):
-        return render_template("home.html")
-
     #if the participant has just logged in
     userNow = request.form["username"]
     userNowPass = request.form["password"]
     #if the account and such match
     if(userNow in users.keys()) and (users[userNow] == userNowPass):
         session["username"] = userNow
-        return render_template("home.html")
+        return render_template("home.html", user = session["username"])
     #if password is incorrect
     elif(userNow in users.keys()):
         flash("Wrong password")
-        return render_template("login.html")
+        return redirect(url_for("root"))
     elif(request.form["registerButton"] == "Register"):
         return render_template("signup.html")
     #if account does not exist
@@ -69,7 +65,12 @@ def signup():
         #also automatically logs the user in
         session["username"] = newUser
         users[newUser] = newPass
-    return render_template("home.html")
+    return render_template("home.html", user = session["username"])
+
+@app.route("/home", methods = ["GET", "POST"])
+def home():
+    if "Make a new story!" in request.form.keys():
+        return redirect(url_for("create"))
 
 #the edit route
 @app.route("/edit", methods = ["GET", "POST"])
@@ -123,6 +124,12 @@ def category():
     for i in range(0, 16):
         storyList.append(get_story_info(db, i))
     return render_template("category.html", stories = storyList)
+
+@app.route("/logout", methods = ["GET", "POST"])
+def logout():
+    session.pop("username")
+    users = {"userNow": "userNowPass"}
+    return redirect(url_for("root"))
 
 if __name__ == "__main__":
     app.debug = True
