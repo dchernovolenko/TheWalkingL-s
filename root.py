@@ -79,9 +79,9 @@ def edit():
     test
     '''
     story_id = request.args["story_id"]
-    story_info = get_story_info(db, story_id)
+    story_info = sqlite3lib.get_story_info(db, story_id)
     s_title = story_info["title"]
-    s_creator = get_user_info(db, story_info["owner"])["username"]
+    s_creator = sqlite3lib.get_user_info(db, story_info["owner"])["username"]
     s_story = story_info["story"]
     # to edit run add_to_story(dbh, story), call it in read_story() and use request.args()
     return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = FALSE)
@@ -89,7 +89,7 @@ def edit():
 @app.route("/create", methods = ["GET", "POST"])
 def create():
     user_id = request.args["user_id"]
-    catList = get_categories(db)
+    catList = sqlite3lib.get_categories(db)
     # to run create_new_story(dbh, args), call it in read_story() and use request.args()
     return render_template("newstory.html", categories = catList)
 
@@ -102,20 +102,20 @@ def read():
         s_title = request.args["title"]
         s_category = request.args["category"]
         s_story = request.args["story"]
-        create_story(db, s_creator, s_title, s_category)
+        sqlite3lib.create_story(db, s_creator, s_title, s_category)
     else:
         story_id = request.args["story_id"]
-        story_info = get_story_info(db, story_id)
+        story_info = sqlite3lib.get_story_info(db, story_id)
         s_title = story_info["title"]
         s_creator = get_user_info(db, story_info["owner"])["username"]
-        add_to_story(db, s_creator, story_id, request.args["story"])
-        s_story = get_story(db, story_id)
+        sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
+        s_story = sqlite3lib.get_story(db, story_id)
     return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = TRUE)
 
 @app.route("/categories", methods = ["GET", "POST"])
 def categories():
     # make a list of all the categories
-    catList = get_categories(db)
+    catList = sqlite3lib.get_categories(db)
     return render_template("categories.html", categories = catList)
 
 @app.route("/category", methods = ["GET", "POST"])
