@@ -12,7 +12,7 @@
   {% endfor %}
   {% else %}
   {% for story in stories %}
-  <td> {{story}} </td>
+  <td> <td><a href="/edit?" + {{story}}>{{story}}</a></td> </td>
   {% endfor %}
   {% endif %}
 </tr>

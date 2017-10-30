@@ -15,16 +15,13 @@ db_name = "data/thewalkingls.db"
 db = sqlite3.connect(db_name, check_same_thread=False)
 
 #users: the library containing all of the users
-#userNow: essentially the "dummy user," with userNowPass as password
-users = {"userNow": "userNowPass"}
-
 #the root route
 #no specific html file; defaults to either home or login.html
 @app.route("/", methods = ["GET", "POST"])
 def root():
     #if you are logged in
     if(session.has_key("username")):
-        return render_template("home.html", user = session["username"])
+        return redirect(url_for("home"))
     #login page
     else:
         return render_template("login.html")
@@ -33,13 +30,14 @@ def root():
 #if user is logged in, it defaults to home.html
 @app.route("/login", methods = ["GET", "POST"])
 def login():
+    users = sqlite3lib.get_users(db)
     #if the participant has just logged in
     userNow = request.form["username"]
     userNowPass = request.form["password"]
     #if the account and such match
     if(userNow in users.keys()) and (users[userNow] == userNowPass):
         session["username"] = userNow
-        return render_template("home.html", user = session["username"])
+        return redirect("home")
     #if password is incorrect
     elif(userNow in users.keys()):
         flash("Wrong password")
@@ -54,22 +52,30 @@ def login():
 #used to register a new account within the session
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
+    users = sqlite3lib.get_users(db)
     #user information for the new account
     newUser = request.form["newUser"]
     newPass = request.form["newPass"]
     if(newUser in users.keys()):
         #handles th case of the account already existing
         flash("Bad, this account exist")
-        return render_template("signup.html")
+        return render_template("login.html")
     else:
         #also automatically logs the user in
-        session["username"] = newUser
-        users[newUser] = newPass
-    return render_template("home.html", user = session["username"])
+        sqlite3lib.insert_new_user(newUser, newPass)
+    return redirect("home")
 
 @app.route("/home", methods = ["GET", "POST"])
 def home():
-    return redirect(url_for("root"))
+    ids = sqlite3lib.get_ids(db)
+    idofuser = ids[session["username"]]
+    storyids = sqlite3lib.get_user_story_ids(db, idofuser)
+    stors = []
+    for x in storyids:
+        d = sqlite3lib.get_story_info(db,x)
+        stors.append(d["title"])
+    return render_template("home.html",stories = stors, user = session["username"])
+
 
 #the edit route
 @app.route("/edit", methods = ["GET", "POST"])
@@ -87,20 +93,18 @@ def edit():
 
 @app.route("/create", methods = ["GET", "POST"])
 def create():
-    user_id = request.args["user_id"]
     catList = sqlite3lib.get_categories(db)
     # to run create_new_story(dbh, args), call it in read_story() and use request.args()
     return render_template("newstory.html", categories = catList)
-
 
 @app.route("/read", methods = ["GET", "POST"])
 def read():
     # run create_story(dbh, args) if you have come from newstory.html, run add_to_story if otherwise
     if request.args["submission"] == "new_story":
         s_creator = session["username"]
-        s_title = request.args["title"]
-        s_category = request.args["category"]
-        s_story = request.args["story"]
+        s_title = request.form["title"]
+        s_category = request.form["category"]
+        s_story = request.form["story"]
         sqlite3lib.create_story(db, s_creator, s_title, s_category)
     else:
         story_id = request.args["story_id"]
@@ -120,8 +124,8 @@ def categories():
 @app.route("/category", methods = ["GET", "POST"])
 def category():
     storyList = []
-    for i in range(0, 16):
-        storyList.append(get_story_info(db, i))
+    for i in range(0, 5):
+        storyList.append(sqlite3lib.get_story_info(db, i))
     return render_template("category.html", stories = storyList)
 
 @app.route("/logout", methods = ["GET", "POST"])

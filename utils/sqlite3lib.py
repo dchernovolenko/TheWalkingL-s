@@ -49,13 +49,25 @@ def get_users(dbh):
         users[line[0]] = line[1]
     return users
 
+def get_ids(dbh):
+    '''
+    Funct:
+    Returns dictionary of usernames: password
+    '''
+    command = "SELECT username, user_id FROM user_pass;"
+    c = dbh.cursor()
+    x = c.execute(command)
+    users = {}
+    for line in x:
+        users[line[0]] = line[1]
+    return users
+
 def get_user_info(dbh, user_id):
     user_info_fetch = db_exec_fetch(dbh, select_user_info(user_id))[0]
     user_info = {'user_id': user_info_fetch[0],
                  'username': user_info_fetch[1],
                  'hash_pass': user_info_fetch[2]}
     print user_info
-
 def get_user_story_ids(dbh, user_id):
     '''
     returns list of story_ids of user's stories
@@ -86,8 +98,8 @@ def get_story_info(dbh, story_id):
     Funct:
     returns dictionary of story_info
     '''
-    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i;" % (story_id)[0])
-    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1;" % (story_id)[0][0])
+    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i;" % story_id)[0]
+    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1;" % story_id)[0][0]
     story_info = {'story_id': story_info_fetch[0],
                   'title': story_info_fetch[1],
                   'owner': owner,
@@ -101,11 +113,18 @@ def get_categories(dbh):
     returns list of categories
     '''
     categories = []
-    category_fetch = db_exec_fetch(dbh, "SELECT DISTINCT categories FROM stories;")
+    category_fetch = db_exec_fetch(dbh, "SELECT DISTINCT category FROM stories;")
     print category_fetch
     for i in category_fetch:
         categories.append(i[0])
     return categories
+
+def get_story_info_cat(dbh, category):
+    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE category = %i;" % (category)[0])
+    story_info = {'story_id': story_info_fetch[0],
+        'title': story_info_fetch[1]
+        }
+    return story_info
 
 def create_story(dbh, user_id, title, category, story):
     '''
@@ -204,7 +223,7 @@ def update_category(story_id, new_category):
 
 
 if __name__ == "__main__":
-    db_name = "../data/thewalkingls.db"
+    db_name = "data/thewalkingls.db"
     db = sqlite3.connect(db_name)
 
     # user_pass testing

@@ -5,7 +5,7 @@ New Story
 {% endblock %}
 
 {% block body %}
-<form action="/create" method= "POST">
+<form action="/read" method= "POST">
   Please title your work: <input type="text" name="title">
   Write your story here:<br>
   <input type="text" name="story">
@@ -16,6 +16,5 @@ New Story
     {% endfor %}
   </select>
   <input type="submit" name="submission" value="new_story">
-</form> 
+</form>
 {% endblock %}
-

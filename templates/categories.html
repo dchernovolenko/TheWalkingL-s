@@ -12,7 +12,7 @@ Tags
   {% endfor %}
   {% else %}
   {% for tag in categories %}
-  <td> {{tag}} </td>
+  <td> <a href="/category?" + {{tag}}> {{tag}} </a> </td>
   {% endfor %}
   {% endif %}
 </tr>
@@ -41,4 +41,3 @@ Tags
 </tr>
 {% endif %}
 {% endblock %}
-
