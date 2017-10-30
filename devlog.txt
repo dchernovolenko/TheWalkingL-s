@@ -2,8 +2,18 @@ The Walking L's
 Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
+danielC -- 2017-10-29 8:40
+	Fixed errors in code.
+adrianB -- 2017-10-29 5:54
+	Added read(), categories() and category() routes
+jackieW -- 2017-10-28 5:24
+	Added create() and edit() routes
+jackieW -- 2017-10-27 7:25
+	Added db connection
 dimitriyL -- 2017-10-27 11:10
 	Added a basic root route and a signup route to root.py
+jackieW -- 2017-10-27 11:08
+	Added get_user_info() and get_story()
 jackieW -- 2017-10-26 2:03
 	Added get_user_ids and other functions
 danielC -- 2017-10-26 1:38
@@ -12,8 +22,12 @@ dimitriyL -- 2017-10-26 1:32
 	Added @login
 jackieW -- 2017-10-24 2:08
 	  Added db creation.
-dimitriyL -- 2017-10-24 2:07
+danielC -- 2017-10-24 2:07
+	Added home.html and story.html.
+dimitriyL -- 2017-10-24 2:06
 	  Added basic login and dsignup html.
+danielC -- 2017-10-23 10:30
+	Added blank files for framework. 
 dimitriyL -- 2017-10-22 11:50
 	  Added this devlog.
 danielC -- 2017-10-22 10:57
