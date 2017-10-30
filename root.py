@@ -1,24 +1,35 @@
+#importing all of the necessary equipment
 from flask import Flask, render_template, request, session, redirect, url_for
-import os
+#to run urandom
+import os, sqlite3
 from utils import sqlite3lib
 import sqlite3
 
 app = Flask(__name__)
+#hashes the key into a random sequence
 app.secret_key = os.urandom(32)
 
 # database connection
 db_name = "data/thewalkingls.db"
 db = sqlite3.connect(db_name)
 
+#users: the library containing all of the users
+#userNow: essentially the "dummy user," with userNowPass as password
 users = {"userNow": "userNowPass"}
 
+#the root route
+#no specific html file; defaults to either home or login.html
 @app.route("/", methods = ["GET", "POST"])
 def root():
+    #if you are logged in
     if(session.has_key("username")):
         return render_template("home.html")
+    #login page
     else:
         return render_template("login.html")
 
+#the login route
+#if user is logged in, it defaults to home.html
 @app.route("/login", methods = ["GET", "POST"])
 def login():
     #person is currently logged in
@@ -43,18 +54,23 @@ def login():
         flash("Press Register to create a new account, boy")
         return render_template("login.html")
 
+#used to register a new account within the session 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
+    #user information for the new account
     newUser = request.form["newUser"]
     newPass = request.form["newPass"]
     if(newUser in users.keys()):
+        #handles th case of the account already existing
         flash("Bad, this account exist")
         return render_template("signup.html")
     else:
+        #also automatically logs the user in
         session["username"] = newUser
         users[newUser] = newPass
     return render_template("home.html")
 
+#the edit route
 @app.route("/edit", methods = ["GET", "POST"])
 def edit():
     '''
