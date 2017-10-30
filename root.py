@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 #to run urandom
 import os, sqlite3
 from utils import sqlite3lib
+import sqlite3
 
 app = Flask(__name__)
 #hashes the key into a random sequence
@@ -115,7 +116,7 @@ def categories():
     catList = get_categories(db)
     return render_template("categories.html", categories = catList)
 
-@app.route("category", methods = ["GET", "POST"])
+@app.route("/category", methods = ["GET", "POST"])
 def category():
     storyList = []
     for i in range(0, 16):
@@ -125,7 +126,6 @@ def category():
 if __name__ == "__main__":
     app.debug = True
     app.run()
-    
+
     # close database connection
     db.close()
-    
