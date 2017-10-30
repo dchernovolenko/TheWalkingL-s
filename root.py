@@ -80,19 +80,9 @@ def home():
 #the edit route
 @app.route("/edit", methods = ["GET", "POST"])
 def edit():
-    '''
-    test
-    '''
     story_id = request.args["story_id"]
-    #stories = sqlite3lib.get_stories(db)
-    #print stories
-    #for i in stories:
-    #    print i
-    #story_id = stories.keys()
-    #story_id = int(story_ids)
     story_id = int(story_id)
     story_info = sqlite3lib.get_story_info(db, story_id)
-    print story_info
     s_title = story_info["title"]
     s_creatorhelp = story_info["owner"]
     s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
@@ -100,21 +90,22 @@ def edit():
     #sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
     s_story = sqlite3lib.get_story(db, story_id)
     # to edit run add_to_story(dbh, story), call it in read_story() and use request.args()
-    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = "false")
+    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = "false", s_id = story_id)
 
 @app.route("/edithelp", methods = ["GET", "POST"])
 def edithelp():
-    #doesen't work rn, make story.html return story_id and it'll be good (or get the id from the name, which is nicer)
-                ids = sqlite3lib.get_ids(db)
-                idofuser = ids[session["username"]]
-                story_info = sqlite3lib.get_story_info(db, story_id)
-                s_title = story_info["title"]
-                s_creatorhelp = story_info["owner"]
-                s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
-                s_creator = s_creatorhelp2["username"]
-                sqlite3lib.add_to_story(db, idofuser , story_id, request.args["story"])
-                s_story = sqlite3lib.get_story(db, story_id)
-                return redirect(url_for("home"))
+    story_id = int(request.args["story_id"])
+    ids = sqlite3lib.get_ids(db)
+    idofuser = ids[session["username"]]
+    story_info = sqlite3lib.get_story_info(db, story_id)
+    s_title = story_info["title"]
+    s_creatorhelp = story_info["owner"]
+    s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
+    s_creator = s_creatorhelp2["username"]
+    sqlite3lib.add_to_story(db, idofuser , story_id, request.args["story"])
+    s_story = sqlite3lib.get_story(db, story_id)
+    return redirect(url_for("home"))
+
 @app.route("/create", methods = ["GET", "POST"])
 def create():
     catList = sqlite3lib.get_categories(db)

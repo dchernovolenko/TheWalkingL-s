@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block body %}
-  {% if reading %}
-    You are now reading <b>{{title}}</b>
-    <br>
+{% if reading == "true" %}
+<p>You are now reading <strong>{{title}}</strong></p>
+<br>
+<br>
     Made by {{creator}} at {{time}}
+<br>
     <br>
-    <hr>
     {{story}}
     <br>
   {% else %}
@@ -22,10 +23,12 @@
     <br>
     Add your submission:
     <br>
-<form method= "POST" action="/edithelp">
-    <input type="text" name="story">
-    <br>
-    <input type="submit" value="edit_story" name="submission">
+    <form method= "GET" action="/edithelp" id="storyform">
+     <input type="text" name="story">
+     <!-- <textarea form="storyform" name="story" cols="40" rows="10"></textarea> -->
+     <br>
+     <input type="submit" value="Submit" name="submission">
+     <input type="hidden" value={{s_id}} name="story_id">
 </form>
 {% endif %}
 {% endblock %}

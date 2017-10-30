@@ -5,11 +5,13 @@ New Story
 {% endblock %}
 
 {% block body %}
-<form action="/read" method= "GET">
+<form action="/read" method= "GET" id="newstoryform">
   Please title your work: <input type="text" name="title">
   <br>
   Write your story here:
+  <br>
   <input type="text" name="story">
+  <!-- <textarea form="newstoryform" name="story" cols="40" rows="10"></textarea> -->
   <br>
   Choose a category for your story:
   <input type="text" name="category">
