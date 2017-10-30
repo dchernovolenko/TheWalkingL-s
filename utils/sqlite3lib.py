@@ -48,6 +48,15 @@ def get_users(dbh):
     for line in x:
         users[line[0]] = line[1]
     return users
+def add_user(dbh, user, password):
+    '''
+    Prereq:
+    Uses aft_insert trigger in db_init.py
+
+    Funct:
+    Creates new story
+    '''
+    db_exec(dbh, insert_new_user(user,password))
 
 def get_ids(dbh):
     '''
@@ -136,6 +145,20 @@ def create_story(dbh, user_id, title, category, story):
     '''
     db_exec(dbh, insert_new_story(title,category,story))
     db_exec(dbh, set_user_story_userid(user_id))
+def get_stories(dbh):
+    '''
+    Funct:
+    Returns dictionary of usernames: password
+    '''
+    command = "SELECT title, story_id FROM stories;"
+    c = dbh.cursor()
+    x = c.execute(command)
+    print x
+
+    users = {}
+    for line in x:
+        users[line[1]] = line[0]
+    return users
 
 def write_story(dbh, story_id, text):
     '''
@@ -205,6 +228,11 @@ def select_user_story(user_id, story_id):
     '''
     return "SELECT story FROM stories WHERE user_stories.story_id = %i AND user_stories.user_id = %i;" % (story_id, user_id)
 
+def select_stories():
+    '''
+    TEST
+    '''
+    return "SELECT story FROM stories;"
 # stories table functions
 def insert_new_story(title, category, story):
                           return "INSERT INTO stories VALUES (null, '%s', '%s', '%s');" % (title, category, story)

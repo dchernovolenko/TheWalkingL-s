@@ -13,7 +13,9 @@
 </tr>
   {% for i in range(0, stories|length) %}
   <tr>
-    <td><a href="/edit?" + {{stories[i]["story_id"]}}>{{stories[i]["title"]}}</a></td>
+    <td><form method= "GET" action="/edit">
+      <button type="submit" name="story_id" value={{stories[i]["story_id"]}}> Edit {{stories[i]["title"]}} </button>
+    </form></td>
     <td>{{stories[i]["category"]}} </td>
     <td>{{stories[i]["story_id"]}} <td>
   {% endfor %}
