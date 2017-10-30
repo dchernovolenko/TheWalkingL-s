@@ -24,7 +24,7 @@ users = {"userNow": "userNowPass"}
 def root():
     #if you are logged in
     if(session.has_key("username")):
-        return render_template("home.html", user = session["username"])
+        return redirect(url_for("home"))
     #login page
     else:
         return render_template("login.html")
@@ -39,7 +39,7 @@ def login():
     #if the account and such match
     if(userNow in users.keys()) and (users[userNow] == userNowPass):
         session["username"] = userNow
-        return render_template("home.html", user = session["username"])
+        return redirect(url_for("home"))
     #if password is incorrect
     elif(userNow in users.keys()):
         flash("Wrong password")
@@ -61,15 +61,20 @@ def signup():
         #handles th case of the account already existing
         flash("Bad, this account exist")
         return render_template("signup.html")
+    elif (newUser == ""):
+        return render_template("signup.html")
     else:
         #also automatically logs the user in
         session["username"] = newUser
         users[newUser] = newPass
-    return render_template("home.html", user = session["username"])
+        return redirect(url_for("home"))
 
 @app.route("/home", methods = ["GET", "POST"])
 def home():
-    return redirect(url_for("root"))
+    if("username" in session.keys()):
+        return render_template("home.html", user = session["username"])
+    else:
+        return redirect(url_for("root"))
 
 #the edit route
 @app.route("/edit", methods = ["GET", "POST"])
