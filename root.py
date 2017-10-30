@@ -69,8 +69,7 @@ def signup():
 
 @app.route("/home", methods = ["GET", "POST"])
 def home():
-    if "Make a new story!" in request.form.keys():
-        return redirect(url_for("create"))
+    return redirect(url_for("root"))
 
 #the edit route
 @app.route("/edit", methods = ["GET", "POST"])
