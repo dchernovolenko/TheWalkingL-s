@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import os
 from utils import sqlite3lib
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 # database connection
-db_name = "../data/thewalkingls.db"
+db_name = "data/thewalkingls.db"
 db = sqlite3.connect(db_name)
 
 users = {"userNow": "userNowPass"}
@@ -99,17 +100,16 @@ def categories():
     catList = get_categories(db)
     return render_template("categories.html", categories = catList)
 
-@app.route("category", methods = ["GET", "POST"])
+@app.route("/category", methods = ["GET", "POST"])
 def category():
     storyList = []
     for i in range(0, 16):
-        storyList.append(get_story_info(db, i)
+        storyList.append(get_story_info(db, i))
     return render_template("category.html", stories = storyList)
 
 if __name__ == "__main__":
     app.debug = True
     app.run()
-    
+
     # close database connection
     db.close()
-    

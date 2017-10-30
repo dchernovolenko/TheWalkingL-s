@@ -55,7 +55,7 @@ def get_user_info(dbh, user_id):
                  'username': user_info_fetch[1],
                  'hash_pass': user_info_fetch[2]}
     print user_info
-    
+
 def get_user_story_ids(dbh, user_id):
     '''
     returns list of story_ids of user's stories
@@ -73,7 +73,7 @@ def get_story(dbh, story_id):
     Story exists
 
     Funct:
-    return story (based on story_id) as string 
+    return story (based on story_id) as string
     '''
     story_fetch = db_exec_fetch(dbh, select_story(story_id))
     return story_fetch[0][0]
@@ -86,8 +86,8 @@ def get_story_info(dbh, story_id):
     Funct:
     returns dictionary of story_info
     '''
-    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i" % (story_id))[0]
-    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1" % (story_id)[0][0]
+    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i" % (story_id)[0])
+    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1" % (story_id)[0][0])
     story_info = {'story_id': story_info_fetch[0],
                   'title': story_info_fetch[1],
                   'owner': owner,
@@ -95,7 +95,7 @@ def get_story_info(dbh, story_id):
                   'story': story_info_fetch[3]
                   }
     return story_info
-						  
+
 def get_categories(dbh):
     '''
     returns list of categories
@@ -106,7 +106,7 @@ def get_categories(dbh):
     for i in category_fetch:
         categories.append(i[0])
     return categories
-    
+
 def create_story(dbh, user_id, title, category, story):
     '''
     Prereq:
@@ -117,7 +117,7 @@ def create_story(dbh, user_id, title, category, story):
     '''
     db_exec(dbh, insert_new_story(title,category,story))
     db_exec(dbh, set_user_story_userid(user_id))
-    
+
 def write_story(dbh, story_id, text):
     '''
     Prereq:
@@ -146,7 +146,7 @@ def add_to_story(dbh, user_id, story_id, text):
     db_exec(dbh, insert_new_user_story(user_id, story_id, 2))
     write_story(dbh, story_id, text)
 
-    
+
 # ------------------------------------------ BASIC SQL FUNCTIONS ---------------------------------------------
 # user_pass table functions
 def insert_new_user(user, hash_pass):
@@ -156,7 +156,7 @@ def insert_new_user(user, hash_pass):
     Password is already hashed.
     '''
     return "INSERT INTO user_pass VALUES (null,'%s','%s');" % (user, hash_pass)
- 
+
 def update_user_pass(user_id, hash_pass):
     '''
     Prereq:
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     #py funct
     '''
     create_story(db, 1, "J", "Fiction")
-    write_story(db, 1, "They walked") 
+    write_story(db, 1, "They walked")
     add_to_story(db, 2, 1, " The castle on the hill.")
     print get_story_info(db, 1);
     print get_user_story_ids(db, 1)
@@ -232,5 +232,5 @@ if __name__ == "__main__":
     print get_user_info(db, 1)
     '''
 
-    
+
     db.close()
