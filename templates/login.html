@@ -5,7 +5,7 @@ Welcome!
 {% endblock %}
 
 {% block body %}
-<form action="root.py">
+<form method= "POST" action="/login">
   <h1>Login if you have an account:</h1>
   <br>
   Enter username:<br>
@@ -14,11 +14,10 @@ Welcome!
   Enter password:<br>
   <input type="password" name="password">
   <br>
-  <input type="submit" value="Submit" name="loginButton">
+  <input type="submit" value="Submit" name="registerButton">
   <br><br>
   <h1>Click BELOW to create a new account:</h1>
   <br>
   <input type="submit" value="Register" name="registerButton">
 </form>
 {% endblock %}
-

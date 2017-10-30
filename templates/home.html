@@ -15,7 +15,8 @@ Welcome, {{user}}
   <input type="submit" value="Make a new story!">
 </form>
 Stories you contributed to:
-{{% for story in stories %}}
+{% for story in stories %}
 <li><c>{{story.title}}</c></li>
 <c>{{story.text}}</c>
+{% endfor %}
 {% endblock %}

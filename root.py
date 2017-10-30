@@ -1,9 +1,10 @@
 #importing all of the necessary equipment
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 #to run urandom
-import os, sqlite3
-from utils import sqlite3lib
+import os
 import sqlite3
+from utils import sqlite3lib
+
 
 app = Flask(__name__)
 #hashes the key into a random sequence
@@ -54,7 +55,7 @@ def login():
         flash("Press Register to create a new account, boy")
         return render_template("login.html")
 
-#used to register a new account within the session 
+#used to register a new account within the session
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
     #user information for the new account
