@@ -2,6 +2,8 @@ The Walking L's
 Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
+dimitriyL -- 2017-10-29 10:55
+	Added flashed errors to login and signup.
 danielC -- 2017-10-29 8:40
 	Fixed errors in code.
 adrianB -- 2017-10-29 5:54
