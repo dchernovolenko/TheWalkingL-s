@@ -61,7 +61,7 @@ def get_user_story_ids(dbh, user_id):
     returns list of story_ids of user's stories
     '''
     story_ids= []
-    user_story_fetch = db_exec_fetch(dbh, "SELECT story_id FROM user_stories WHERE user_id = %i" % (user_id))
+    user_story_fetch = db_exec_fetch(dbh, "SELECT story_id FROM user_stories WHERE user_id = %i;" % (user_id))
     print user_story_fetch
     for i in user_story_fetch:
         story_ids.append(i[0])
@@ -86,8 +86,8 @@ def get_story_info(dbh, story_id):
     Funct:
     returns dictionary of story_info
     '''
-    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i" % (story_id)[0])
-    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1" % (story_id)[0][0])
+    story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i;" % (story_id)[0])
+    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1;" % (story_id)[0][0])
     story_info = {'story_id': story_info_fetch[0],
                   'title': story_info_fetch[1],
                   'owner': owner,
@@ -101,7 +101,7 @@ def get_categories(dbh):
     returns list of categories
     '''
     categories = []
-    category_fetch = db_exec_fetch(dbh, "SELECT DISTINCT categories FROM stories")
+    category_fetch = db_exec_fetch(dbh, "SELECT DISTINCT categories FROM stories;")
     print category_fetch
     for i in category_fetch:
         categories.append(i[0])
@@ -165,17 +165,17 @@ def update_user_pass(user_id, hash_pass):
     return "UPDATE user_pass SET hash_pass = '%s' WHERE user_id = %i;" % (hash_pass, user_id)
 
 def select_user_info(user_id):
-    return "SELECT * FROM user_pass WHERE user_id = %i" % (user_id)
+    return "SELECT * FROM user_pass WHERE user_id = %i;" % (user_id)
 
 # user_stories table functions
 def insert_new_user_story(user_id, story_id, owner):
     return "INSERT INTO user_stories VALUES (%i,%i,%i);" % (user_id, story_id, owner)
 
 def set_user_story_userid(user_id):
-    return "UPDATE user_stories SET user_id = %i" % (user_id)
+    return "UPDATE user_stories SET user_id = %i;" % (user_id)
 
 def set_user_story_ownership(user_id, ownership):
-    return "UPDATE user_stories SET ownership = %i WHERE user_id = %i" % (ownership, user_id)
+    return "UPDATE user_stories SET ownership = %i WHERE user_id = %i;" % (ownership, user_id)
 
 def select_ownership(user_id, story_id):
     return "SELECT ownership FROM user_stories WHERE user_id = %i AND story_id = %i;" % (user_id, story_id)
@@ -194,13 +194,13 @@ def update_story(story_id, text):
     return "UPDATE stories SET story = '%s' WHERE story_id = %i;" % (text, story_id)
 
 def select_story(story_id):
-    return "SELECT story FROM stories WHERE story_id = %i" % (story_id)
+    return "SELECT story FROM stories WHERE story_id = %i;" % (story_id)
 
 def update_title(story_id, new_title):
-    return "UPDATE stories SET title = '%s' WHERE story_id = %i" % (new_title, story_id)
+    return "UPDATE stories SET title = '%s' WHERE story_id = %i;" % (new_title, story_id)
 
 def update_category(story_id, new_category):
-    return "UPDATE stories SET category = '%s' WHERE story_id = %i" % (new_category, story_id)
+    return "UPDATE stories SET category = '%s' WHERE story_id = %i;" % (new_category, story_id)
 
 
 if __name__ == "__main__":
