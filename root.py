@@ -12,7 +12,7 @@ app.secret_key = os.urandom(32)
 
 # database connection
 db_name = "data/thewalkingls.db"
-db = sqlite3.connect(db_name)
+db = sqlite3.connect(db_name, check_same_thread=False)
 
 #users: the library containing all of the users
 #userNow: essentially the "dummy user," with userNowPass as password
