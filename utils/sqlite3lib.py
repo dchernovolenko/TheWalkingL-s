@@ -67,7 +67,7 @@ def get_user_info(dbh, user_id):
     user_info = {'user_id': user_info_fetch[0],
                  'username': user_info_fetch[1],
                  'hash_pass': user_info_fetch[2]}
-    print user_info
+    return user_info
 def get_user_story_ids(dbh, user_id):
     '''
     returns list of story_ids of user's stories

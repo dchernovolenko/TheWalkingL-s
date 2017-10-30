@@ -70,10 +70,10 @@ def home():
     ids = sqlite3lib.get_ids(db)
     idofuser = ids[session["username"]]
     storyids = sqlite3lib.get_user_story_ids(db, idofuser)
-    stors = []
+    stors = {}
     for x in storyids:
         d = sqlite3lib.get_story_info(db,x)
-        stors.append(d["title"])
+        stors[d["title"]] = x
     return render_template("home.html",stories = stors, user = session["username"])
 
 
@@ -100,20 +100,25 @@ def create():
 @app.route("/read", methods = ["GET", "POST"])
 def read():
     # run create_story(dbh, args) if you have come from newstory.html, run add_to_story if otherwise
-    if request.args["submission"] == "new_story":
-        s_creator = session["username"]
-        s_title = request.form["title"]
-        s_category = request.form["category"]
-        s_story = request.form["story"]
-        sqlite3lib.create_story(db, s_creator, s_title, s_category)
-    else:
-        story_id = request.args["story_id"]
-        story_info = sqlite3lib.get_story_info(db, story_id)
-        s_title = story_info["title"]
-        s_creator = get_user_info(db, story_info["owner"])["username"]
-        sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
-        s_story = sqlite3lib.get_story(db, story_id)
-    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = TRUE)
+    try:
+        if request.args["submission"] == "new_story":
+            s_creator = session["username"]
+            s_title = request.form["title"]
+            s_category = request.form["category"]
+            s_story = request.form["story"]
+            sqlite3lib.create_story(db, s_creator, s_title, s_category)
+    except:
+            s = request.args["story_id"]
+            story_id = int(s)
+            story_info = sqlite3lib.get_story_info(db, story_id)
+            s_title = story_info["title"]
+            s_creatorhelp = story_info["owner"]
+            s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
+            s_creator = s_creatorhelp2["username"]
+            #sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
+            s_story = sqlite3lib.get_story(db, story_id)
+
+    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = "true")
 
 @app.route("/categories", methods = ["GET", "POST"])
 def categories():

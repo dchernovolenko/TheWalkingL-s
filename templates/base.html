@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
- 
+
     <title>{% block header %} Storytime {% endblock %}</title>
-    
+
   </head>
   {% set messages = get_flashed_messages() %}
   {% for each in messages %}
@@ -11,10 +11,16 @@
     <br>
   {% endfor %}
   <body>
+    <center>
     {% block body %}
     {% endblock %}
+    </center>
   </body>
+  <br>
+  <hr>
+    <center>
   <form action="/home" method= "POST">
       <input type="submit" value="Go Home">
     </form>
+    </center>
 </html>

@@ -20,7 +20,11 @@ Welcome, {{user}}
 </form>
 
 Stories you contributed to:
-{% for story in stories %}
-<li><c>{{story}}</c></li>
+<form action = "/read" method = "GET">
+{% for key, val in stories.iteritems() %}
+ <tr>
+      <td> <button type = "submit" name = "story_id" value = {{val}}>{{key}}</button></td>
+   </tr>
 {% endfor %}
+</form>
 {% endblock %}
