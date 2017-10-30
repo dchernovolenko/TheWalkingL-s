@@ -119,7 +119,7 @@ def categories():
 def category():
     storyList = []
     for i in range(0, 16):
-        storyList.append(get_story_info(db, i)
+        storyList.append(get_story_info(db, i))
     return render_template("category.html", stories = storyList)
 
 if __name__ == "__main__":
