@@ -2,6 +2,8 @@ The Walking L's
 Adrian Boylan, Daniel Chernovolenko, Dimitriy Leksanov, Jackie Woo
 Period 8 Soft Dev Project 0
 DEVLOG:
+dimitriyL -- 2017-10-30 12:42
+	Fixed a minor bug where pressing the "Register" button would log people in by mistake.
 dimitriyL -- 2017-10-29 11:20
 	Added a preliminary home route that allows the "Return Home" button to be operational
 dimitriyL -- 2017-10-29 10:55
