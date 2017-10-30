@@ -125,7 +125,10 @@ def categories():
 def category():
     storyList = []
     for i in range(0, 5):
-        storyList.append(sqlite3lib.get_story_info(db, i))
+        try:
+            storyList.append(sqlite3lib.get_story_info(db, i))
+        except:
+            pass
     return render_template("category.html", stories = storyList)
 
 @app.route("/logout", methods = ["GET", "POST"])
