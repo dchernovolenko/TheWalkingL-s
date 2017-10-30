@@ -8,7 +8,7 @@ Tags
 <tr>
   {% if categories|length > 3 %}
   {% for i in range(0, 4) %}
-  <td><a href="/category?" + {{categories[i]}}> {{categories[i]}} </a></td>
+  <td><a href="/category?" + {{categories[i]}}> {{categories[i]}} </a></td> <br>
   {% endfor %}
   {% else %}
   {% for tag in categories %}

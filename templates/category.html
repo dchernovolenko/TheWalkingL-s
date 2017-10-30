@@ -5,39 +5,17 @@
 {% endblock %}
 
 {% block body %}
+<table style="width:100%">
 <tr>
-  {% if stories|length > 3 %}
-  {% for i in range(0, 4) %}
-  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
-  {% endfor %}
-  {% else %}
-  {% for story in stories %}
-  <td> <td><a href="/edit?" + {{story}}>{{story}}</a></td> </td>
-  {% endfor %}
-  {% endif %}
+  <th>Title</th>
+  <th>Category</th>
+  <th>ID</th>
 </tr>
-
-{% if stories|length > 7 %}
-<tr>
-  {% for i in range(4, 8) %}
-  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
+  {% for i in range(0, stories|length) %}
+  <tr>
+    <td><a href="/edit?" + {{stories[i]["story_id"]}}>{{stories[i]["title"]}}</a></td>
+    <td>{{stories[i]["category"]}} </td>
+    <td>{{stories[i]["story_id"]}} <td>
   {% endfor %}
-</tr>
-{% endif %}
-
-{% if stories|length > 11 %}
-<tr>
-  {% for i in range(8, 12) %}
-  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
-  {% endfor %}
-</tr>
-{% endif %}
-
-{% if stories|length > 15 %}
-<tr>
-  {% for i in range(12, 16) %}
-  <td><a href="/edit?" + {{stories[i]["story_id"]}}> {{stories[i]["title"]}} </a></td>
-  {% endfor %}
-</tr>
-{% endif %}
+</table>
 {% endblock %}

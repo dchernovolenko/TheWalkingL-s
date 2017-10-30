@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "loginbase.html" %}
 
 {% block header %}
 Home
@@ -7,8 +7,8 @@ Home
 {% block body %}
 Welcome, {{user}}
 
-<form action="/categories" method= "POST">
-  <input type="submit" value="Categories">
+<form action="/category" method= "POST">
+  <input type="submit" value="List of stories">
 </form>
 
 <form action="/create" method= "POST">
@@ -23,7 +23,7 @@ Stories you contributed to:
 <form action = "/read" method = "GET">
 {% for key, val in stories.iteritems() %}
  <tr>
-      <td> <button type = "submit" name = "story_id" value = {{val}}>{{key}}</button></td>
+      <td> <button type = "submit" name = "story_id" value = {{val}}>{{key}}</button></td> <br>
    </tr>
 {% endfor %}
 </form>

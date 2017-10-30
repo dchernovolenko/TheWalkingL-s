@@ -91,6 +91,18 @@ def edit():
     # to edit run add_to_story(dbh, story), call it in read_story() and use request.args()
     return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = FALSE)
 
+@app.route("/edithelp", methods = ["GET", "POST"])
+def edithelp():
+    #doesen't work rn, make story.html return story_id and it'll be good (or get the id from the name, which is nicer)
+                s = request.args["story"]
+                story_id = int(s)
+                story_info = sqlite3lib.get_story_info(db, story_id)
+                s_title = story_info["title"]
+                s_creatorhelp = story_info["owner"]
+                s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
+                s_creator = s_creatorhelp2["username"]
+                #sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
+                s_story = sqlite3lib.get_story(db, story_id)
 @app.route("/create", methods = ["GET", "POST"])
 def create():
     catList = sqlite3lib.get_categories(db)
@@ -102,11 +114,20 @@ def read():
     # run create_story(dbh, args) if you have come from newstory.html, run add_to_story if otherwise
     try:
         if request.args["submission"] == "new_story":
-            s_creator = session["username"]
-            s_title = request.form["title"]
-            s_category = request.form["category"]
-            s_story = request.form["story"]
-            sqlite3lib.create_story(db, s_creator, s_title, s_category)
+            ids = sqlite3lib.get_ids(db)
+            idofuser = ids[session["username"]]
+            print "test"
+            print session["username"]
+            s_creator = idofuser
+            print s_creator
+            s_title = request.args["title"]
+            print s_title
+            s_category = request.args["category"]
+            print s_category
+            s_story = request.args["story"]
+            print s_story
+            sqlite3lib.create_story(db, s_creator, s_title, s_category, s_story)
+            print "test6"
     except:
             s = request.args["story_id"]
             story_id = int(s)
@@ -119,12 +140,6 @@ def read():
             s_story = sqlite3lib.get_story(db, story_id)
 
     return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = "true")
-
-@app.route("/categories", methods = ["GET", "POST"])
-def categories():
-    # make a list of all the categories
-    catList = sqlite3lib.get_categories(db)
-    return render_template("categories.html", categories = catList)
 
 @app.route("/category", methods = ["GET", "POST"])
 def category():
