@@ -145,11 +145,11 @@ def read():
 @app.route("/category", methods = ["GET", "POST"])
 def category():
     storyList = []
-    for i in range(0, 100000000):
+    for i in range(0, 10000):
         try:
             storyList.append(sqlite3lib.get_story_info(db, i))
         except:
-            break;
+            pass
     return render_template("category.html", stories = storyList)
 
 @app.route("/logout", methods = ["GET", "POST"])
