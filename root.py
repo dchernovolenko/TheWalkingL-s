@@ -144,7 +144,7 @@ def read():
             #sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
             s_story = sqlite3lib.get_story(db, story_id)
 
-    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = "true")
+    return render_template("story.html", title=s_title, creator=session["username"], story=s_story, reading = "true")
 
 @app.route("/category", methods = ["GET", "POST"])
 def category():
