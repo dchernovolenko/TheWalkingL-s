@@ -102,14 +102,17 @@ def edit():
 def edithelp():
     story_id = int(request.args["story_id"])
     ids = sqlite3lib.get_ids(db)
-    idofuser = ids[session["username"]]
-    story_info = sqlite3lib.get_story_info(db, story_id)
-    s_title = story_info["title"]
-    s_creatorhelp = story_info["owner"]
-    s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
-    s_creator = s_creatorhelp2["username"]
-    sqlite3lib.add_to_story(db, idofuser , story_id, request.args["story"])
-    s_story = sqlite3lib.get_story(db, story_id)
+    if (session["username"] in ids):
+        flash("This story has already been edited")
+    else:
+	    idofuser = ids[session["username"]]
+	    story_info = sqlite3lib.get_story_info(db, story_id)
+
+	    s_creatorhelp = story_info["owner"]
+	    s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
+	    s_creator = s_creatorhelp2["username"]
+	    sqlite3lib.add_to_story(db, idofuser , story_id, request.args["story"])
+	    s_story = sqlite3lib.get_story(db, story_id)
     return redirect(url_for("home"))
 
 @app.route("/create", methods = ["GET", "POST"])
@@ -148,7 +151,7 @@ def read():
             #sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
             s_story = sqlite3lib.get_story(db, story_id)
 
-    return render_template("story.html", title=s_title, creator=session["username"], story=s_story, reading = "true")
+    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time = "sometime", reading = "true")
 
 @app.route("/category", methods = ["GET", "POST"])
 def category():
