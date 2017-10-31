@@ -113,7 +113,8 @@ def get_story_info(dbh, story_id):
                   'title': story_info_fetch[1],
                   'owner': owner,
                   'category': story_info_fetch[2],
-                  'story': story_info_fetch[3]
+                  'story': story_info_fetch[3],
+                  'lastsub': story_info_fetch[4]
                   }
     return story_info
 
@@ -174,7 +175,7 @@ def write_story(dbh, story_id, text):
         new_story = text
     else:
         new_story = old_story[0][0] + " " + text
-    db_exec(dbh, update_story(story_id, new_story))
+    db_exec(dbh, update_story(story_id, new_story, text))
 
 def add_to_story(dbh, user_id, story_id, text):
     '''
@@ -237,8 +238,8 @@ def select_stories():
 def insert_new_story(title, category, story):
                           return "INSERT INTO stories VALUES (null, '%s', '%s', '%s');" % (title, category, story)
 
-def update_story(story_id, text):
-    return "UPDATE stories SET story = '%s' WHERE story_id = %i;" % (text, story_id)
+def update_story(story_id, text, lasts):
+    return "UPDATE stories SET story = '%s', lastsub = '%s'WHERE story_id = %i;" % (text, lasts, story_id)
 
 def select_story(story_id):
     return "SELECT story FROM stories WHERE story_id = %i;" % (story_id)

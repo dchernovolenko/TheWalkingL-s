@@ -84,13 +84,15 @@ def edit():
     story_id = int(story_id)
     story_info = sqlite3lib.get_story_info(db, story_id)
     s_title = story_info["title"]
+    s_last = story_info["lastsub"]
+    print s_last
     s_creatorhelp = story_info["owner"]
     s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
     s_creator = s_creatorhelp2["username"]
     #sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
     s_story = sqlite3lib.get_story(db, story_id)
     # to edit run add_to_story(dbh, story), call it in read_story() and use request.args()
-    return render_template("story.html", title=s_title, creator=s_creator, story=s_story, time="sometime", reading = "false", s_id = story_id)
+    return render_template("story.html", title=s_title, creator=s_creator, storylast= s_last, time="sometime", reading = "false", s_id = story_id)
 
 @app.route("/edithelp", methods = ["GET", "POST"])
 def edithelp():

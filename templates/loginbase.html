@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>{% block header %} Storytime {% endblock %}</title>
+
+  </head>
+  {% set messages = get_flashed_messages() %}
+  {% for each in messages %}
+    <h3>{{each}}</h3>
+    <br>
+  {% endfor %}
+  <body>
+    <center>
+    {% block body %}
+    {% endblock %}
+    </center>
+  </body>
+</html>

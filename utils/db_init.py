@@ -16,8 +16,8 @@ def create_user_stories_table():
 
 # table3 - storiess
 def create_stories_table():
-    c.execute("CREATE TABLE stories (story_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, category TEXT, story TEXT);")
-    c.execute("INSERT INTO stories VALUES (null,'the og','horror', 'There was once a man named the admin.');")
+    c.execute("CREATE TABLE stories (story_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, category TEXT, story TEXT, lastsub TEXT);")
+    c.execute("INSERT INTO stories VALUES (null,'the og','therealog', 'There was once a man named the admin.', 'There was once a man named the admin.');")
     print "CREATED STORIES TABLE"
 
 def init_triggers():
