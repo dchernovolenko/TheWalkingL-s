@@ -23,7 +23,7 @@ Stories you contributed to:
 <form action = "/read" method = "GET">
 {% for key, val in stories.iteritems() %}
  <tr>
-      <td> <button type = "submit" name = "story_id" value = {{val}}>{{key}}</button></td> <br>
+      <td> <button type = "submit" name = "story_id" value = {{key}}>{{val}}</button></td> <br>
    </tr>
 {% endfor %}
 </form>

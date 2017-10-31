@@ -76,7 +76,7 @@ def home():
     stors = {}
     for x in storyids:
         d = sqlite3lib.get_story_info(db,x)
-        stors[d["title"]] = x
+        stors[x] = d["title"]
     return render_template("home.html",stories = stors, user = session["username"])
 
 
@@ -126,30 +126,17 @@ def read():
 		if request.args["submission"] == "new_story":
 			ids = sqlite3lib.get_ids(db)
 			idofuser = ids[session["username"]]
-		print "test"
-		print session["username"]
-		s_creator = idofuser
-		print s_creator
-		s_title = request.args["title"]
-		print s_title
-		s_category = request.args["category"]
-		print s_category
-		s_story = request.args["story"]
-		print s_story
-		sqlite3lib.create_story(db, s_creator, s_title, s_category, s_story)
-		print "test6"
+			s_creator = idofuser
+			s_title = request.args["title"]
+			s_category = request.args["category"]
+			s_story = request.args["story"]
+			sqlite3lib.create_story(db, s_creator, s_title, s_category, s_story)
 	except:
 		s = request.args["story_id"]
 		story_id = int(s)
 		story_info = sqlite3lib.get_story_info(db, story_id)
 		s_title = story_info["title"]
-		print "----"
-		print story_info
-		print "----"
 		s_creatorhelp = story_info["owner"]
-		print "--"
-		print s_creatorhelp
-		print "--"
 		s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
 		s_creator = s_creatorhelp2["username"]
 		#sqlite3lib.add_to_story(db, s_creator, story_id, request.args["story"])
@@ -160,7 +147,7 @@ def read():
 @app.route("/category", methods = ["GET", "POST"])
 def category():
     storyList = []
-    for i in range(0, 5):
+    for i in range(0, 20000000000000):
         try:
             storyList.append(sqlite3lib.get_story_info(db, i))
         except:
