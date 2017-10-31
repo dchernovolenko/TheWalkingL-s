@@ -11,7 +11,6 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 def hasher(password):
 	hashed = hashlib.md5(password.encode())
-	print hashed.hexdigest()
 	return hashed.hexdigest()
 # database connection
 db_name = "data/thewalkingls.db"
@@ -88,7 +87,6 @@ def edit():
     story_info = sqlite3lib.get_story_info(db, story_id)
     s_title = story_info["title"]
     s_last = story_info["lastsub"]
-    print s_last
     s_creatorhelp = story_info["owner"]
     s_creatorhelp2 = sqlite3lib.get_user_info(db, s_creatorhelp)
     s_creator = s_creatorhelp2["username"]
