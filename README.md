@@ -7,7 +7,7 @@ Have fun.
 
 Test accounts: 
 | User  | Pass |
-| ------------- | ------------- |
+| --- | --- |
 | d  | d  |
 | admin  | password  |
 
