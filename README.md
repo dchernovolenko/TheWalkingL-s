@@ -6,9 +6,8 @@ Project is a online blog/game concept.
 Have fun.
 
 Test accounts: 
+| User  | Pass |
+| ------------- | ------------- |
+| d  | d  |
+| admin  | password  |
 
-User  | Pass
-
-d     | d
-
-admin |  password
