@@ -9,14 +9,19 @@
 <p>You are now reading <strong>{{title}}</strong></p>
 <br>
 <br>
-    Made by {{creator}} at {{time}}
+    Made by {{creator}}
 <br>
     <br>
     {{story}}
     <br>
+    <form method="POST" action="/home">
+      <input type="submit" value="Home">
+    </form>
+    <br>
+    <br>
   {% else %}
     You are now editing {{title}}
-    Made by {{creator}} at {{time}}
+    Made by {{creator}}
     <br>
     Last submission:
     {{storylast}}
