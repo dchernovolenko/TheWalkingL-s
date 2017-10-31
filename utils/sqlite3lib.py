@@ -108,7 +108,7 @@ def get_story_info(dbh, story_id):
     returns dictionary of story_info
     '''
     story_info_fetch = db_exec_fetch(dbh, "SELECT * FROM stories WHERE story_id = %i;" % story_id)[0]
-    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1;" % story_id)[0][0]
+    owner = db_exec_fetch(dbh, "SELECT user_id FROM user_stories WHERE story_id = %i AND ownership = 1 and user_id IS NOT NULL;" % story_id)[0][0]
     story_info = {'story_id': story_info_fetch[0],
                   'title': story_info_fetch[1],
                   'owner': owner,
@@ -145,7 +145,8 @@ def create_story(dbh, user_id, title, category, story):
     Creates new story
     '''
     db_exec(dbh, insert_new_story(title,category,story))
-    db_exec(dbh, set_user_story_userid(user_id))
+    story_id = db_exec_fetch(dbh, select_storyid())
+    db_exec(dbh, insert_new_user_story(user_id, int(story_id[0][0]), 1))
 def get_stories(dbh):
     '''
     Funct:
@@ -243,6 +244,8 @@ def update_story(story_id, text, lasts):
 
 def select_story(story_id):
     return "SELECT story FROM stories WHERE story_id = %i;" % (story_id)
+def select_storyid():
+    return "SELECT MAX(story_id) FROM stories;"
 
 def update_title(story_id, new_title):
     return "UPDATE stories SET title = '%s' WHERE story_id = %i;" % (new_title, story_id)
