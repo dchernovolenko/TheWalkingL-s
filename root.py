@@ -1,15 +1,19 @@
 #importing all of the necessary equipment
 from flask import Flask, render_template, request, session, redirect, url_for, flash
+import hashlib
 #to run urandom
 import os
 import sqlite3
 from utils import sqlite3lib
 
-
 app = Flask(__name__)
 #hashes the key into a random sequence
 app.secret_key = os.urandom(32)
-
+def hasher(password):
+	hashed = hashlib.md5(password.encode())
+	print hashed.hexdigest()
+	return hashed.hexdigest()
+	
 # database connection
 db_name = "data/thewalkingls.db"
 db = sqlite3.connect(db_name, check_same_thread=False)
@@ -33,7 +37,7 @@ def login():
     users = sqlite3lib.get_users(db)
     #if the participant has just logged in
     userNow = request.form["username"]
-    userNowPass = request.form["password"]
+    userNowPass = hasher(request.form["password"])
     #if the account and such match
     if(userNow in users.keys()) and (users[userNow] == userNowPass):
         session["username"] = userNow
@@ -55,7 +59,7 @@ def signup():
     users = sqlite3lib.get_users(db)
     #user information for the new account
     newUser = request.form["newUser"]
-    newPass = request.form["newPass"]
+    newPass = hasher(request.form["newPass"])
     if(newUser in users.keys()):
         #handles th case of the account already existing
         flash("Bad, this account exist")
