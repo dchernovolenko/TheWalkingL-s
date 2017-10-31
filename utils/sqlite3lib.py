@@ -236,7 +236,7 @@ def select_stories():
     return "SELECT story FROM stories;"
 # stories table functions
 def insert_new_story(title, category, story):
-                          return "INSERT INTO stories VALUES (null, '%s', '%s', '%s');" % (title, category, story)
+                          return "INSERT INTO stories VALUES (null, '%s', '%s', '%s', '%s');" % (title, category, story, story)
 
 def update_story(story_id, text, lasts):
     return "UPDATE stories SET story = '%s', lastsub = '%s'WHERE story_id = %i;" % (text, lasts, story_id)

@@ -4,7 +4,7 @@ import sqlite3
 # table1 - usernames and passwords
 def create_user_pass_table():
     c.execute("CREATE TABLE user_pass (user_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, hash_pass TEXT);")
-    c.execute("INSERT INTO user_pass VALUES (null,'admin','password');")
+    c.execute("INSERT INTO user_pass VALUES (null,'admin','5f4dcc3b5aa765d61d8327deb882cf99');")
     print "CREATED USER_PASS TABLE"
 
 # table2 - users and stories
