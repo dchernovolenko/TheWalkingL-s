@@ -6,8 +6,15 @@ adrianB -- 2017-10-30 10:12
 	Added in hashing
 dimitriyL -- 2017-10-30 12:42
 	Fixed a minor bug where pressing the "Register" button would log people in by mistake.
+danielC -- 2017-10-30 entire day
+	Fixed errors in code.
+	Started w/ fixing login, then read, then write, then edit
+	Added last_submitted column to tables
+	Baisically rewrote a large portion of the code. 
 dimitriyL -- 2017-10-29 11:20
 	Added a preliminary home route that allows the "Return Home" button to be operational
+danielC -- 2017-10-29 11:10
+	Added code for home route
 dimitriyL -- 2017-10-29 10:55
 	Added flashed errors to login and signup
 jackieW -- 2017-10-29 10:23
